@@ -45,3 +45,8 @@ In a heartbeat system, there are two core components:
               return f"Node {node_id} → FAILED (no heartbeat for {elapsed:.2f}s)"
           else:
               return f"Node {node_id} → ALIVE (last heartbeat {elapsed:.2f}s ago)"
+
+
+
+The mechansim work through  two role keys : sender and receiver .The sender commits to broadcasting its heartbeat at regular intervals, say every x seconds. The receiver monitors these incoming heartbeats and maintains a record of when the last heartbeat was received. If the receiver does not hear from the sender within an expected timeframe, it can reasonably assume something has gone wrong.    
+When a node crashes, stops responding, or becomes isolated due to network partitions, the heartbeats stop arriving. The monitoring system can then take appropriate action, such as removing the failed node from a load balancer pool, redirecting traffic to healthy nodes, or triggering failover procedures.
